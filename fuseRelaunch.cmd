@@ -1,0 +1,1 @@
+-intstyle "ise" -incremental -lib "secureip" -o "/home/apurvan/Projects/FreshStart/final-sobel-master-nitish-working-simulation/final-sobel-master/testbench_isim_beh.exe" -prj "/home/apurvan/Projects/FreshStart/final-sobel-master-nitish-working-simulation/final-sobel-master/testbench_beh.prj" "work.testbench" 
