@@ -59,6 +59,7 @@ port (
               );
 end matrix_multiply_top;
 architecture Behavioral of matrix_multiply_top is
+signal init : std_logic := '0';
 begin
 process(clock, nd_sig)
 variable output: STD_ULOGIC_VECTOR(7 downto 0);
@@ -83,7 +84,7 @@ variable kc_7:  integer := 0;--1;
 variable kc_8:  integer := 0;--0;
 variable kc_9:  integer := 0;---1;
 begin
-if(  falling_edge(clock) and nd_sig='1') then
+if(  rising_edge(clock) and nd_sig='1') then
 kp_1:= kc_1*to_integer(unsigned(pixel_1));
 kp_2:= kc_2*to_integer(unsigned(pixel_2));
 kp_3:= kc_3*to_integer(unsigned(pixel_3));
@@ -104,6 +105,12 @@ end if;
 output:=std_ulogic_vector(to_unsigned(saturated_sum,8));
 end if;
 data_out<= output;
-rdy <= nd_sig and (not clock);
+rdy <= (not clock) and init;
+end process;
+process (clock)
+begin
+if rising_edge(clock) then
+init<= nd_sig; 
+end if;
 end process;
 end Behavioral;

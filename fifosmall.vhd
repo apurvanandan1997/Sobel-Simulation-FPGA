@@ -57,7 +57,7 @@ constant nbits : natural := integer(floor(log2(real(fifodepth))))+1;
 begin
 process(clk,wr,reset) --writing process
 variable writeptrc: std_logic_vector( nbits-1 downto 0) :=( others => '0');
-variable fullvar : std_logic:='0';
+variable write_over : std_logic:='0';
 begin
 if(clk'event and clk='1' and wr ='1') then
 pix_row(conv_integer(writeptrc)) <= datain;
@@ -65,13 +65,18 @@ writeptrc := writeptrc+'1';
 end if;
 if(writeptrc=conv_std_logic_vector(fifodepth,nbits))then
 writeptrc:=(others => '0');
-fullvar:= '1';
+write_over := '1';
 end if;
 if(reset = '1') then
 writeptrc := (others => '0');
-fullvar:= '0';
+write_over := '0';
 end if;
-full<=fullvar;
+if(falling_edge(clk)) then
+full <= write_over;
+end if;
+--if(clk'event and clk='0' and wr ='1') then
+--full<=fullvar;
+--end if;
 end process;
 process(clk,rd1,reset) --reading process 1
 variable r1ptrc: std_logic_vector( nbits-1 downto 0):=( others => '0');

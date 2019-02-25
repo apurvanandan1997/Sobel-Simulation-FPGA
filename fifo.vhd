@@ -32,7 +32,7 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 use ieee.math_real.all;
 entity fifo is
 generic(
-fifodepth : integer := 50;
+fifodepth : integer := 200;
 pixelvectorsize : integer := 8;
 stride : integer := 1
 );

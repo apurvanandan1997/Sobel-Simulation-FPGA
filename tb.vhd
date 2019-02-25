@@ -26,6 +26,8 @@ END COMPONENT;
 			  signal clock : std_logic := '0';
 			  signal data_rdy : std_logic;
 			   constant clock_period : time := 1 ns;
+				constant resolution_width : integer := 200;
+				constant resolution_height : integer := 200;
 				signal eof_sig : std_logic :='0';
   -----------------------------------------------------------------------------
   -- Testbench Internal Signals
@@ -84,7 +86,7 @@ begin
       readline(file_VECTORS, v_ILINE);
 --		read(v_ILINE, vector, v1GoodRead);
 --            read(v_ILINE, v_SPACE, v2GoodRead );
-            while (i <51) loop--not (v_SPACE = CR ) and v1GoodRead and v2GoodRead) loop
+            while (i <resolution_height+1) loop--not (v_SPACE = CR ) and v1GoodRead and v2GoodRead) loop
 				read(v_ILINE, vector, v1GoodRead);
             read(v_ILINE, v_SPACE, v2GoodRead );
 				if (v1GoodRead ) then
@@ -115,11 +117,11 @@ wait for clock_period;
 		begin
  file_open(file_RESULTS, "c.txt", write_mode);
  --wait until data_rdy'event and data_rdy='1';
- while ( line_count<48) loop
+ while ( line_count<resolution_height-2) loop
   wait until data_rdy'event and data_rdy='1';
   vector := data_out;
   write(v_OLINE, vector);
-  if(pixels_c>46) then
+  if(pixels_c>resolution_width-4) then
     pixels_c:=0;
     write(v_OLINE, new_line);
     line_count := line_count+1;
@@ -132,5 +134,4 @@ writeline(file_RESULTS, v_OLINE);
 	  file_close(file_RESULTS);
       wait;
     end process writing;
-
   end;
