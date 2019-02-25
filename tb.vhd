@@ -27,7 +27,7 @@ END COMPONENT;
 			  signal data_rdy : std_logic;
 			   constant clock_period : time := 1 ns;
 				constant resolution_width : integer := 200;
-				constant resolution_height : integer := 200;
+				constant resolution_height : integer := 150;
 				signal eof_sig : std_logic :='0';
   -----------------------------------------------------------------------------
   -- Testbench Internal Signals
@@ -36,10 +36,6 @@ END COMPONENT;
   file file_RESULTS : text;
 
   constant c_WIDTH : natural := 8;
-
- signal temp: std_ulogic_vector(7 downto 0);
-
-
 
 begin
   uut: top PORT MAP (
@@ -86,7 +82,7 @@ begin
       readline(file_VECTORS, v_ILINE);
 --		read(v_ILINE, vector, v1GoodRead);
 --            read(v_ILINE, v_SPACE, v2GoodRead );
-            while (i <resolution_height+1) loop--not (v_SPACE = CR ) and v1GoodRead and v2GoodRead) loop
+            while (i <resolution_width+1) loop--not (v_SPACE = CR ) and v1GoodRead and v2GoodRead) loop
 				read(v_ILINE, vector, v1GoodRead);
             read(v_ILINE, v_SPACE, v2GoodRead );
 				if (v1GoodRead ) then

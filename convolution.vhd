@@ -74,15 +74,15 @@ variable kp_8 : integer;
 variable kp_9 : integer;
 variable sum :  integer;
 variable saturated_sum: integer ;
-variable kc_1:  integer := 0;--1;
-variable kc_2:  integer := 0;--0;
-variable kc_3:  integer := 0;---1;
-variable kc_4:  integer := 0;-- 2;
-variable kc_5:  integer := 1;--0;
-variable kc_6:  integer := 0;---2;
-variable kc_7:  integer := 0;--1;
-variable kc_8:  integer := 0;--0;
-variable kc_9:  integer := 0;---1;
+variable kc_1:  integer := 1;
+variable kc_2:  integer := 0;
+variable kc_3:  integer := -1;
+variable kc_4:  integer :=  2;
+variable kc_5:  integer := 0;
+variable kc_6:  integer := -2;
+variable kc_7:  integer := 1;
+variable kc_8:  integer := 0;
+variable kc_9:  integer := -1;
 begin
 if(  rising_edge(clock) and nd_sig='1') then
 kp_1:= kc_1*to_integer(unsigned(pixel_1));
